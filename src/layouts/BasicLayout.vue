@@ -41,13 +41,13 @@ import {
   MenuUnfoldOutlined,
   MenuFoldOutlined,
 } from '@ant-design/icons-vue'
-import { Layout, LayoutHeader, LayoutContent, LayoutSider, Menu, MenuItem } from 'ant-design-vue'
-const ALayout = Layout
-const ALayoutHeader = LayoutHeader
-const ALayoutSider = LayoutSider
-const ALayoutContent = LayoutContent
-const AMenu = Menu
-const AMenuItem = MenuItem
+// import { Layout, LayoutHeader, LayoutContent, LayoutSider, Menu, MenuItem } from 'ant-design-vue'
+// const ALayout = Layout
+// const ALayoutHeader = LayoutHeader
+// const ALayoutSider = LayoutSider
+// const ALayoutContent = LayoutContent
+// const AMenu = Menu
+// const AMenuItem = MenuItem
 const selectedKeys = ref<string[]>(['1'])
 const collapsed = ref<boolean>(false)
 </script>
