@@ -10,9 +10,8 @@ import { RouterView } from 'vue-router'
 
 <style scoped lang="scss">
 .app-style {
-  border-radius: 8;
-  overflow: 'hidden';
-  width: '100vw';
-  height: '100vh';
+  overflow: hidden;
+  width: 100vw;
+  height: 100vh;
 }
 </style>

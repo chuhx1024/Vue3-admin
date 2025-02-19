@@ -6,6 +6,5 @@ import { Button } from 'ant-design-vue'
 <template>
   <main>
     <TheWelcome />
-    <Button type="primary">Button</Button>
   </main>
 </template>
