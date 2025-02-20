@@ -20,7 +20,7 @@ export type siderbarRouteConfig = RouteRecordRaw & {
 export const siderbarRoutes: siderbarRouteConfig[] = [
   {
     path: '/dashboard',
-    component: () => import('@/views/HomeView.vue'),
+    component: () => import('@/views/DashboardView.vue'),
     meta: {
       key: '/dashboard',
       icon: VideoCameraOutlined,
@@ -38,7 +38,7 @@ export const siderbarRoutes: siderbarRouteConfig[] = [
     children: [
       {
         path: '/user/add',
-        component: () => import('@/views/AboutView.vue'),
+        component: () => import('@/views/userManager/CreateUserView.vue'),
         meta: {
           key: '/user/add',
           icon: UserOutlined,
@@ -90,15 +90,15 @@ export const siderbarRoutes: siderbarRouteConfig[] = [
     component: () => import('@/views/HomeView.vue'),
     meta: {
       key: '/about',
-      icon: UserOutlined,
+      icon: UploadOutlined,
       label: '关于我们',
     },
   },
   {
-    path: '/about',
+    path: '/about9',
     component: () => import('@/views/HomeView.vue'),
     meta: {
-      key: '/about',
+      key: '/about0',
       hidden: true,
       icon: UploadOutlined,
       label: '关于我们',

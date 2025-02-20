@@ -12,12 +12,12 @@
     </a-layout-sider>
     <a-layout>
       <a-layout-header class="main-header">
-        <menu-unfold-outlined
-          v-if="collapsed"
+        <a-button
+          type="text"
           class="trigger"
+          :icon="collapsed ? h(MenuUnfoldOutlined) : h(MenuFoldOutlined)"
           @click="() => (collapsed = !collapsed)"
         />
-        <menu-fold-outlined v-else class="trigger" @click="() => (collapsed = !collapsed)" />
         <a-dropdown class="user-info">
           <a href="javascript:void(0)">
             <a-space>
@@ -44,8 +44,9 @@
   </a-layout>
 </template>
 <script lang="ts" setup>
-import { ref } from 'vue'
+import { ref, h } from 'vue'
 import { type MenuProps } from 'ant-design-vue'
+import { MenuUnfoldOutlined, MenuFoldOutlined } from '@ant-design/icons-vue'
 import { siderbarRoutes, type siderbarRouteConfig } from '@/router/index'
 import { removeCookie } from '@/utils/handleCookie'
 
@@ -102,22 +103,17 @@ watch(
     background: #fff;
     padding: 0;
     .trigger {
-      font-size: 18px;
-      line-height: 64px;
-      padding: 0 12px;
-      cursor: pointer;
-      transition: color 0.3s;
-      &:hover {
-        color: #1890ff;
-      }
+      font-size: 16px;
+      width: 64px;
+      height: 64px;
     }
     .user-info {
       padding: 0 12px;
     }
   }
   .main-sider {
-    text-align: center;
-    line-height: 120px;
+    // text-align: center;
+    // line-height: 120px;
     color: #fff;
     background-color: #fff;
     .logo {
@@ -128,7 +124,7 @@ watch(
     }
   }
   .main-content {
-    max-height: calc(100vh - 64px);
+    height: calc(100vh - 64px);
     overflow: auto;
     padding: 10px;
   }
