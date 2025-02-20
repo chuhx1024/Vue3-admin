@@ -45,12 +45,6 @@
 </template>
 <script lang="ts" setup>
 import { ref } from 'vue'
-// import {
-//   MenuUnfoldOutlined,
-//   MenuFoldOutlined,
-//   UserOutlined,
-//   DownOutlined,
-// } from '@ant-design/icons-vue'
 import { type MenuProps } from 'ant-design-vue'
 import { siderbarRoutes, type siderbarRouteConfig } from '@/router/index'
 import { removeCookie } from '@/utils/handleCookie'

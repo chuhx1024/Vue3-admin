@@ -25,6 +25,7 @@ export default defineConfig({
       resolvers: [
         AntDesignVueResolver({
           importStyle: false,
+          resolveIcons: true, // 启用图标解析
         }), // 自动解析 Ant Design Vue 组件
       ],
       dts: 'src/components.d.ts', // 生成组件的类型声明文件
