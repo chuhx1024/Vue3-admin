@@ -108,20 +108,20 @@ export const siderbarRoutes: siderbarRouteConfig[] = [
 
 export const routes: RouteRecordRaw[] = [
   {
-    path: '/',
-    component: BasicLayout,
-    redirect: siderbarRoutes[0].path,
-    children: [...siderbarRoutes],
-  },
-  {
     path: '/login',
     component: LoginLayout,
     children: [
       {
         path: '/login',
-        component: () => import('@/views/HomeView.vue'),
+        component: () => import('@/views/LoginView.vue'),
       },
     ],
+  },
+  {
+    path: '/',
+    component: BasicLayout,
+    redirect: siderbarRoutes[0].path,
+    children: [...siderbarRoutes],
   },
 ]
 

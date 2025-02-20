@@ -12,7 +12,9 @@ const contentStyle: CSSProperties = {
   minHeight: 120,
   lineHeight: '120px',
   color: '#fff',
-  backgroundColor: '#1e1e1e',
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
 }
 
 const layoutStyle: CSSProperties = {
