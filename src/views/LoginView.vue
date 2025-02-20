@@ -1,5 +1,4 @@
 <template>
-  <context-holder />
   <a-form
     class="login-form"
     :model="formState"
@@ -42,7 +41,6 @@ interface FormState {
   password: string
   remember: boolean
 }
-const [messageApi, contextHolder] = message.useMessage()
 const formState = reactive<FormState>({
   username: '',
   password: '',
@@ -56,12 +54,12 @@ const onFinish = async (values: FormState) => {
   const { code, msg, data } = await login({ username, password })
 
   if (code === 200) {
-    messageApi.info('Hello, Ant Design!')
+    message.info('登录成功!')
     const { access_token, token_type } = data
     setToken(access_token, token_type)
     router.push('/') // 使用 router.push 进行页面跳转
   } else {
-    messageApi.error(msg)
+    message.error(msg)
   }
 }
 
