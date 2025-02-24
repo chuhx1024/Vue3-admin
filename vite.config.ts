@@ -31,6 +31,13 @@ export default defineConfig({
       dts: 'src/components.d.ts', // 生成组件的类型声明文件
     }),
   ],
+  css: {
+    preprocessorOptions: {
+      scss: {
+        additionalData: `@use '@/styles/variables' as vars;`
+      }
+    }
+  },
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),
