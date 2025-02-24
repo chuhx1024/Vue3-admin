@@ -48,7 +48,7 @@
         }
 
         &:hover {
-          color: $xtxColor;
+          color: vars.$xtxColor;
         }
       }
 

@@ -8,5 +8,5 @@
 </template>
 
 <script setup lang="ts">
-import { TheHeader, TheFooter, TheNav } from './compontents/index.ts'
+import { TheHeader, TheFooter, TheNav } from './compontents/index'
 </script>
