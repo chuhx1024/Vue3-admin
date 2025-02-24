@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory, RouterView, type RouteRecordRaw } from 'vue-router'
-import BasicLayout from '@/layouts/BasicLayout.vue'
+import BasicLayout from '@/layouts/BasicLayout/index.vue'
 import LoginLayout from '@/layouts/LoginLayout.vue'
 import { UserOutlined, VideoCameraOutlined, UploadOutlined } from '@ant-design/icons-vue'
 
