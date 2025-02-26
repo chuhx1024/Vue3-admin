@@ -1,7 +1,7 @@
 <template>
   <a-button
     type="text"
-    class="Hamburger-container"
+    class="header-nav-btn"
     :icon="menuCollapse ? h(MenuUnfoldOutlined) : h(MenuFoldOutlined)"
     @click="() => toggleMenuCollapse()"
   />
@@ -21,10 +21,4 @@ const { menuCollapse } = storeToRefs(appStore)
 const { toggleMenuCollapse } = appStore
 </script>
 
-<style lang="scss" scoped>
-.Hamburger-container {
-  font-size: 16px;
-  width: 64px;
-  height: 64px;
-}
-</style>
+<style lang="scss" scoped></style>
