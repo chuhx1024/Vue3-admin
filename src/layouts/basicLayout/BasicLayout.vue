@@ -13,7 +13,9 @@
     <a-layout>
       <the-header />
       <a-layout-content class="main-content">
-        <RouterView />
+        <transition name="fade-transform" mode="out-in">
+          <RouterView :key="route.path" />
+        </transition>
       </a-layout-content>
     </a-layout>
   </a-layout>

@@ -1,0 +1,9 @@
+.ant-breadcrumb {
+  a {
+    color: #000;
+    &:hover {
+      color: blue;
+      background-color: transparent;
+    }
+  }
+}

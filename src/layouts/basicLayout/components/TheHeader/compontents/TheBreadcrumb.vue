@@ -1,15 +1,17 @@
 <template>
-  <a-breadcrumb>
-    <a-breadcrumb-item v-for="(item, index) in breadcrumbRoutes" :key="index">
-      <component
-        :is="index === breadcrumbRoutes.length - 1 ? 'span' : 'router-link'"
-        v-if="item.path !== ''"
-        :to="item.path"
-      >
-        {{ item.label }}
-      </component>
-      <span v-else>{{ route.meta.label }}</span>
-    </a-breadcrumb-item>
+  <a-breadcrumb class="breadcrumb-container">
+    <transition-group name="breadcrumb">
+      <a-breadcrumb-item v-for="(item, index) in breadcrumbRoutes" :key="index">
+        <component
+          :is="index === breadcrumbRoutes.length - 1 ? 'span' : 'router-link'"
+          v-if="item.path !== ''"
+          :to="item.path"
+        >
+          {{ item.label }}
+        </component>
+        <span v-else>{{ route.meta.label }}</span>
+      </a-breadcrumb-item>
+    </transition-group>
   </a-breadcrumb>
 </template>
 
@@ -50,7 +52,12 @@ watch(
 </script>
 
 <style lang="scss" scoped>
-.Breadcrumb-container {
-  color: purple;
+.breadcrumb-container {
+  span {
+    display: inline-block;
+    color: #97a8be;
+    left: 0;
+    cursor: text;
+  }
 }
 </style>
