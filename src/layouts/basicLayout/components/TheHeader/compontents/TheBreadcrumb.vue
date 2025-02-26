@@ -1,7 +1,7 @@
 <template>
   <a-breadcrumb class="breadcrumb-container">
     <transition-group name="breadcrumb">
-      <a-breadcrumb-item v-for="(item, index) in breadcrumbRoutes" :key="index">
+      <a-breadcrumb-item v-for="(item, index) in breadcrumbRoutes" :key="item.path">
         <component
           :is="index === breadcrumbRoutes.length - 1 ? 'span' : 'router-link'"
           v-if="item.path !== ''"

@@ -1,4 +1,10 @@
 .ant-breadcrumb {
+  ol {
+    display: inline;
+    li {
+      display: inline-block;
+    }
+  }
   a {
     color: #000;
     &:hover {
