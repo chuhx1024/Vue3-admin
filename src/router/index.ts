@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory, RouterView, type RouteRecordRaw } from 'vue-router'
-import BasicLayout from '@/layouts/BasicLayout.vue'
+import BasicLayout from '@/layouts/basicLayout/BasicLayout.vue'
 import LoginLayout from '@/layouts/LoginLayout.vue'
 import { UserOutlined, VideoCameraOutlined, UploadOutlined } from '@ant-design/icons-vue'
 
@@ -28,10 +28,10 @@ export const siderbarRoutes: siderbarRouteConfig[] = [
     },
   },
   {
-    path: '/user',
+    path: '/user/add',
     component: RouterView,
     meta: {
-      key: '/user',
+      key: '/user/add',
       icon: UserOutlined,
       label: '用户管理',
     },
@@ -57,10 +57,10 @@ export const siderbarRoutes: siderbarRouteConfig[] = [
     ],
   },
   {
-    path: '/role',
+    path: '/role/list',
     component: RouterView,
     meta: {
-      key: '/role',
+      key: '/role/list',
       icon: UserOutlined,
       label: '角色管理',
     },
