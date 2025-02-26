@@ -2,15 +2,23 @@
   <a-button
     type="text"
     class="Hamburger-container"
-    :icon="collapsed ? h(MenuUnfoldOutlined) : h(MenuFoldOutlined)"
-    @click="() => (collapsed = !collapsed)"
+    :icon="menuCollapse ? h(MenuUnfoldOutlined) : h(MenuFoldOutlined)"
+    @click="() => toggleMenuCollapse()"
   />
 </template>
 
 <script lang="ts" setup>
-import { ref, h } from 'vue'
+import { h } from 'vue'
 import { MenuUnfoldOutlined, MenuFoldOutlined } from '@ant-design/icons-vue'
-const collapsed = ref<boolean>(false)
+import { useAppStore } from '@/stores/modules/app'
+// 获取 Store 实例
+const appStore = useAppStore()
+
+// 使用 storeToRefs 解构 state，确保响应式
+const { menuCollapse } = storeToRefs(appStore)
+
+// 直接使用 actions
+const { toggleMenuCollapse } = appStore
 </script>
 
 <style lang="scss" scoped>

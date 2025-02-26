@@ -1,6 +1,6 @@
 <template>
   <a-layout class="main-layout">
-    <a-layout-sider class="main-sider" v-model:collapsed="collapsed" :trigger="null" collapsible>
+    <a-layout-sider class="main-sider" v-model:collapsed="menuCollapse" :trigger="null" collapsible>
       <div class="logo" />
       <a-menu
         v-model:selectedKeys="selectedKeys"
@@ -45,7 +45,12 @@ const handleMenuItemClick: MenuProps['onClick'] = (e) => {
 }
 
 const selectedKeys = ref<string[]>([])
-const collapsed = ref<boolean>(false)
+import { useAppStore } from '@/stores/modules/app'
+// 获取 Store 实例
+const appStore = useAppStore()
+
+// 使用 storeToRefs 解构 state，确保响应式
+const { menuCollapse } = storeToRefs(appStore)
 
 // 监听路由 设置高亮显示
 const route = useRoute()
