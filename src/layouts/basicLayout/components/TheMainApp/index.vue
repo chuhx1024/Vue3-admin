@@ -15,5 +15,6 @@ const route = useRoute()
   height: calc(100vh - 64px);
   overflow: auto;
   padding: 10px;
+  background-color: #f5f6fb;
 }
 </style>
