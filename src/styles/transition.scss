@@ -32,3 +32,13 @@
 .breadcrumb-leave-active {
   position: absolute;
 }
+
+/* user sider transition */
+.sider-enter-active {
+  transition: opacity 0.5s ease;
+}
+
+.sider-enter-from,
+.sider-leave-to {
+  opacity: 0;
+}

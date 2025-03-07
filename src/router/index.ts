@@ -28,6 +28,28 @@ export const siderbarRoutes: siderbarRouteConfig[] = [
     },
   },
   {
+    path: '/system',
+    redirect: '/system/user',
+    component: RouterView,
+    meta: {
+      key: '/sysetm',
+      icon: VideoCameraOutlined,
+      label: '系统管理',
+    },
+    children: [
+      {
+        path: '/system/user',
+        component: () => import('@/views/system/user/index.vue'),
+        meta: {
+          key: '/user/add',
+          icon: UserOutlined,
+          label: '用户管理',
+        },
+      },
+    ],
+  },
+
+  {
     path: '/user/add',
     component: RouterView,
     meta: {
