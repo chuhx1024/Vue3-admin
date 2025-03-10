@@ -41,43 +41,23 @@ export const siderbarRoutes: siderbarRouteConfig[] = [
         path: '/system/user',
         component: () => import('@/views/system/user/index.vue'),
         meta: {
-          key: '/user/add',
+          key: '/system/user',
           icon: UserOutlined,
           label: '用户管理',
+        },
+      },
+      {
+        path: '/system/dept',
+        component: () => import('@/views/system/dept/index.vue'),
+        meta: {
+          key: 'system/dept',
+          icon: UserOutlined,
+          label: '部门管理',
         },
       },
     ],
   },
 
-  {
-    path: '/user/add',
-    component: RouterView,
-    meta: {
-      key: '/user/add',
-      icon: UserOutlined,
-      label: '用户管理',
-    },
-    children: [
-      {
-        path: '/user/add',
-        component: () => import('@/views/userManager/CreateUserView.vue'),
-        meta: {
-          key: '/user/add',
-          icon: UserOutlined,
-          label: '新建用户',
-        },
-      },
-      {
-        path: '/user/list',
-        component: () => import('@/views/HomeView.vue'),
-        meta: {
-          key: '/user/list',
-          icon: UserOutlined,
-          label: '用户列表',
-        },
-      },
-    ],
-  },
   {
     path: '/role/list',
     component: RouterView,
