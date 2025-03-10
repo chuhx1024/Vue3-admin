@@ -1,9 +1,9 @@
 import request from '@/utils/request'
-import { type IUserReq, type IUserAddreq } from '@/api/types/user'
+import { type IUserRes, type IUserAddreq } from '@/api/types/user'
 
 // 用户列表
 export const getUserList = () => {
-  return request<IUserReq[]>({
+  return request<IUserRes[]>({
     method: 'get',
     url: 'user/users/',
   })
@@ -11,7 +11,7 @@ export const getUserList = () => {
 
 // 用户创建
 export const addUser = (data: IUserAddreq) => {
-  return request<IUserReq[]>({
+  return request<IUserRes[]>({
     method: 'post',
     url: 'user/users/',
     data,

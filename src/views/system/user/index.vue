@@ -16,7 +16,7 @@
         <div v-if="!collapsed" class="sider-content">
           <h3>部门列表</h3>
           <br />
-          <a-tree :tree-data="treeData"></a-tree>
+          <a-tree :field-names="fieldNames" :tree-data="deptList"></a-tree>
         </div>
       </Transition>
     </a-layout-sider>
@@ -28,9 +28,9 @@
             <create-user-modal />
           </template>
         </filter-grid>
-        <a-table :columns="columns" :data-source="data">
+        <a-table :columns="columns" :data-source="userList">
           <template #headerCell="{ column }">
-            <template v-if="column.key === 'name'">
+            <template v-if="column.key === 'username'">
               <span>
                 <smile-outlined />
                 Name
@@ -39,32 +39,26 @@
           </template>
 
           <template #bodyCell="{ column, record }">
-            <template v-if="column.key === 'name'">
+            <template v-if="column.key === 'username'">
               <a>
-                {{ record.name }}
+                {{ record.username }}
               </a>
             </template>
-            <template v-else-if="column.key === 'tags'">
+            <template v-else-if="column.key === 'roles'">
               <span>
                 <a-tag
-                  v-for="tag in record.tags"
-                  :key="tag"
-                  :color="tag === 'loser' ? 'volcano' : tag.length > 5 ? 'geekblue' : 'green'"
+                  v-for="role in record.roles"
+                  :key="role.id"
+                  :color="
+                    role.rolename === 'loser'
+                      ? 'volcano'
+                      : role.rolename.length > 5
+                        ? 'geekblue'
+                        : 'green'
+                  "
                 >
-                  {{ tag.toUpperCase() }}
+                  {{ role.rolename }}
                 </a-tag>
-              </span>
-            </template>
-            <template v-else-if="column.key === 'action'">
-              <span>
-                <a>Invite 一 {{ record.name }}</a>
-                <a-divider type="vertical" />
-                <a>Delete</a>
-                <a-divider type="vertical" />
-                <a class="ant-dropdown-link">
-                  More actions
-                  <down-outlined />
-                </a>
               </span>
             </template>
           </template>
@@ -74,105 +68,93 @@
   </a-layout>
 </template>
 <script lang="ts" setup>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import type { TreeProps } from 'ant-design-vue'
 import { LeftOutlined, RightOutlined } from '@ant-design/icons-vue'
-import { SmileOutlined, DownOutlined } from '@ant-design/icons-vue'
+import { SmileOutlined } from '@ant-design/icons-vue'
 import CreateUserModal from './components/CreateUserModal.vue'
+import { message } from 'ant-design-vue'
+import { getUserList } from '@/api/user'
+import { getDeptList } from '@/api/dept'
+import { type IUserRes } from '@/api/types/user'
 const collapsed = ref<boolean>(false)
 
-const treeData: TreeProps['treeData'] = [
-  {
-    title: 'parent 1',
-    key: '0-0',
-    children: [
-      {
-        title: 'parent 1-0',
-        key: '0-0-0',
-        disabled: true,
-        children: [
-          { title: 'leaf', key: '0-0-0-0', disableCheckbox: true },
-          { title: 'leaf', key: '0-0-0-1' },
-        ],
-      },
-      {
-        title: 'parent 1-1',
-        key: '0-0-1',
-        children: [{ key: '0-0-1-0', title: 'sss' }],
-      },
-    ],
-  },
-  {
-    title: 'parent 2',
-    key: '0-02',
-    children: [
-      {
-        title: 'parent 1-02',
-        key: '0-0-02',
-        disabled: true,
-        children: [
-          { title: 'leaf', key: '0-0-0-20', disableCheckbox: true },
-          { title: 'leaf', key: '0-0-02-1' },
-        ],
-      },
-      {
-        title: 'parent 1-21',
-        key: '0-0-21',
-        children: [{ key: '0-0-1-20', title: 'sss' }],
-      },
-    ],
-  },
-]
+// const treeData: TreeProps['treeData'] = [
+//   {
+//     title: 'parent 1',
+//     key: '0-0',
+//     children: [
+//       {
+//         title: 'parent 1-0',
+//         key: '0-0-0',
+//         disabled: true,
+//         children: [
+//           { title: 'leaf', key: '0-0-0-0', disableCheckbox: true },
+//           { title: 'leaf', key: '0-0-0-1' },
+//         ],
+//       },
+//     ],
+//   },
+// ]
+const fieldNames: TreeProps['fieldNames'] = {
+  key: 'id',
+  title: 'name',
+}
+const deptList = ref<TreeProps['treeData']>([])
+const handleGetDeptList = async () => {
+  const { code, msg, data } = await getDeptList()
+
+  if (code === 200) {
+    console.log(data, 123)
+    deptList.value = data as any
+  } else {
+    message.error(msg)
+  }
+}
+
 const columns = [
   {
-    name: 'Name',
-    dataIndex: 'name',
-    key: 'name',
+    name: '用户名',
+    dataIndex: 'username',
+    key: 'username',
   },
   {
-    title: 'Age',
-    dataIndex: 'age',
-    key: 'age',
+    title: '昵称',
+    dataIndex: 'full_name',
+    key: 'full_name',
   },
   {
-    title: 'Address',
-    dataIndex: 'address',
-    key: 'address',
+    title: 'Email',
+    dataIndex: 'email',
+    key: 'email',
   },
   {
-    title: 'Tags',
-    key: 'tags',
-    dataIndex: 'tags',
+    title: '部门',
+    dataIndex: 'dept',
+    key: 'dept',
   },
   {
-    title: 'Action',
-    key: 'action',
+    title: '角色',
+    key: 'roles',
+    dataIndex: 'roles',
   },
 ]
 
-const data = [
-  {
-    key: '1',
-    name: 'John Brown',
-    age: 32,
-    address: 'New York No. 1 Lake Park',
-    tags: ['nice', 'developer'],
-  },
-  {
-    key: '2',
-    name: 'Jim Green',
-    age: 42,
-    address: 'London No. 1 Lake Park',
-    tags: ['loser'],
-  },
-  {
-    key: '3',
-    name: 'Joe Black',
-    age: 32,
-    address: 'Sidney No. 1 Lake Park',
-    tags: ['cool', 'teacher'],
-  },
-]
+const userList = ref<IUserRes[]>([])
+const handlegetUserList = async () => {
+  const { code, msg, data } = await getUserList()
+
+  if (code === 200) {
+    userList.value = data
+  } else {
+    message.error(msg)
+  }
+}
+
+onMounted(() => {
+  handlegetUserList()
+  handleGetDeptList()
+})
 </script>
 <style lang="scss" scoped>
 .user-layout {
