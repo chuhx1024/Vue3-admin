@@ -11,4 +11,5 @@ export type IUserAddreq = {
   username: string
   password: string
   roles: number[]
+  dept_id: string
 }

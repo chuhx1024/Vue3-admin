@@ -25,7 +25,7 @@
         <filter-grid>
           <template #left-title> 用户列表 </template>
           <template #right>
-            <create-user-modal @handleGetUserList="handleGetUserList" />
+            <create-user-modal @handleGetUserList="handleGetUserList" :deptList="deptList" />
           </template>
         </filter-grid>
         <a-table :columns="columns" :data-source="userList">
@@ -42,6 +42,11 @@
             <template v-if="column.key === 'username'">
               <a>
                 {{ record.username }}
+              </a>
+            </template>
+            <template v-else-if="column.key === 'dept'">
+              <a>
+                {{ record.dept?.name }}
               </a>
             </template>
             <template v-else-if="column.key === 'roles'">

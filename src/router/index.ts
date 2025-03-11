@@ -55,39 +55,18 @@ export const siderbarRoutes: siderbarRouteConfig[] = [
           label: '部门管理',
         },
       },
+      {
+        path: '/system/role',
+        component: () => import('@/views/system/role/index.vue'),
+        meta: {
+          key: '/system/role',
+          icon: UserOutlined,
+          label: '角色管理',
+        },
+      },
     ],
   },
 
-  {
-    path: '/role',
-    redirect: '/role/list',
-    component: RouterView,
-    meta: {
-      key: '/role',
-      icon: UserOutlined,
-      label: '角色管理',
-    },
-    children: [
-      {
-        path: '/role/list',
-        component: () => import('@/views/HomeView.vue'),
-        meta: {
-          key: '/role/list',
-          icon: UserOutlined,
-          label: '角色列表',
-        },
-      },
-      {
-        path: '/role/add',
-        component: () => import('@/views/HomeView.vue'),
-        meta: {
-          key: '/role/add',
-          icon: UserOutlined,
-          label: '新建角色',
-        },
-      },
-    ],
-  },
   {
     path: '/about',
     component: () => import('@/views/HomeView.vue'),

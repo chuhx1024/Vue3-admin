@@ -40,6 +40,7 @@ declare module 'vue' {
     ATag: typeof import('ant-design-vue/es')['Tag']
     ATooltip: typeof import('ant-design-vue/es')['Tooltip']
     ATree: typeof import('ant-design-vue/es')['Tree']
+    ATreeSelect: typeof import('ant-design-vue/es')['TreeSelect']
     DownOutlined: typeof import('@ant-design/icons-vue')['DownOutlined']
     FilterGrid: typeof import('./components/FilterGrid.vue')['default']
     HelloWorld: typeof import('./components/HelloWorld.vue')['default']

@@ -32,12 +32,31 @@
           </a-row>
         </a-checkbox-group>
       </a-form-item>
+      <a-form-item has-feedback label="部门" name="roles">
+        <a-tree-select
+          v-model:value="formState.dept_id"
+          show-search
+          style="width: 100%"
+          :dropdown-style="{ maxHeight: '400px', overflow: 'auto' }"
+          placeholder="Please select"
+          allow-clear
+          tree-default-expand-all
+          :tree-data="deptList"
+          tree-node-filter-prop="label"
+          :field-names="{
+            children: 'children',
+            label: 'name',
+            value: 'id',
+          }"
+        >
+        </a-tree-select>
+      </a-form-item>
     </a-form>
   </a-modal>
 </template>
 
 <script lang="ts" setup>
-import { ref, h, reactive, toRaw, defineEmits } from 'vue'
+import { ref, h, reactive, toRaw, defineEmits, defineProps } from 'vue'
 import { PlusOutlined } from '@ant-design/icons-vue'
 import { message } from 'ant-design-vue'
 import type { Rule } from 'ant-design-vue/es/form'
@@ -45,10 +64,15 @@ import { addUser } from '@/api/user'
 import { getRoleList } from '@/api/role'
 import { type IUserAddreq } from '@/api/types/user'
 import { type IRoleRes } from '@/api/types/role'
+import type { TreeSelectProps } from 'ant-design-vue'
 
 interface FormState extends IUserAddreq {
   confirm?: string
 }
+
+defineProps<{
+  deptList: TreeSelectProps['treeData']
+}>()
 const emit = defineEmits(['handleGetUserList'])
 
 const formRef = ref()
@@ -57,8 +81,9 @@ const formState = reactive<FormState>({
   full_name: '',
   password: '',
   confirm: '',
-  email: '',
+  email: '1212@12.com',
   roles: [],
+  dept_id: '',
 })
 const validatePass = async (_rule: Rule, value: string) => {
   if (value === '') {
@@ -110,6 +135,7 @@ const onSubmit = () => {
     .then(async () => {
       console.log('values', formState, toRaw(formState))
       const rest = { ...formState }
+      console.log('rest', rest)
       delete rest.confirm
       const { code, msg } = await addUser(rest)
 
