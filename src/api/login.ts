@@ -1,5 +1,6 @@
 import request from '@/utils/request'
 import { type ILoginRes, type ILoginReq } from '@/api/types/login'
+import { type UserState } from '@/stores/modules/user/types'
 
 // 用户登录
 export const login = (data: ILoginReq) => {
@@ -10,5 +11,13 @@ export const login = (data: ILoginReq) => {
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded',
     },
+  })
+}
+
+// 获取用户信息
+export const getUserInfo = () => {
+  return request<UserState>({
+    method: 'GET',
+    url: '/base/user_info',
   })
 }

@@ -35,6 +35,7 @@ import { reactive } from 'vue'
 import { login } from '@/api/login'
 import { message } from 'ant-design-vue'
 import { setToken } from '@/utils/handleCookie'
+import { useUserStore } from '@/stores/modules/user'
 
 interface FormState {
   username: string
@@ -48,6 +49,8 @@ const formState = reactive<FormState>({
 })
 
 const router = useRouter() // 初始化路由器实例
+
+const userStore = useUserStore()
 const onFinish = async (values: FormState) => {
   console.log('Success:', values)
   const { username, password } = values
@@ -57,6 +60,8 @@ const onFinish = async (values: FormState) => {
     message.info('登录成功!')
     const { access_token, token_type } = data
     setToken(access_token, token_type)
+    const { id, getUserInfo } = userStore
+    !id && (await getUserInfo())
     router.push('/') // 使用 router.push 进行页面跳转
   } else {
     message.error(msg)

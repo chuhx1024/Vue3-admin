@@ -31,6 +31,7 @@ export default defineConfigWithVueTs(
           ignores: ['index'],
         },
       ],
+      '@typescript-eslint/no-unused-expressions': 'off',
     },
   },
 )

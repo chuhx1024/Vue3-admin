@@ -1,29 +1,40 @@
 import { defineStore } from 'pinia'
 import piniaStore from '@/stores/index'
-import { type UserState, type Project } from './types'
+import { type UserState } from './types'
+import { getUserInfo } from '@/api/login'
 
 export const useUserStore = defineStore(
   // 唯一ID
   'user',
   {
     state: (): UserState => ({
-      user_id: '',
       username: '',
-      currentProject: { id: '', name: '', alias: '', creator: '' },
+      id: '',
+      email: '',
+      full_name: '',
+      roles: [],
+      dept: {},
     }),
     getters: {},
     actions: {
       updateSettings(partial: Partial<UserState>) {
         this.$patch(partial)
       },
-
-      setCurrentProject(obj: Project) {
-        this.currentProject = obj
+      async getUserInfo() {
+        try {
+          const { code, data } = await getUserInfo()
+          if (code === 200) {
+            this.updateSettings(data)
+          }
+          return data
+        } catch (error) {
+          return error
+        }
       },
     },
     persist: [
       {
-        key: 'suer-state', // 持久化存储的 key
+        key: 'user-state', // 持久化存储的 key
         storage: localStorage, // 存储方式
       },
     ],
