@@ -5,7 +5,7 @@ import { type IUserRes, type IUserAddreq } from '@/api/types/user'
 export const getUserList = () => {
   return request<IUserRes[]>({
     method: 'get',
-    url: 'user/users/',
+    url: 'user/users',
   })
 }
 
@@ -13,7 +13,7 @@ export const getUserList = () => {
 export const addUser = (data: IUserAddreq) => {
   return request<IUserRes[]>({
     method: 'post',
-    url: 'user/users/',
+    url: 'user/users',
     data,
   })
 }

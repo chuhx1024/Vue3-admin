@@ -23,20 +23,34 @@
       <a-form-item has-feedback label="再次确认密码" name="confirm">
         <a-input v-model:value="formState.confirm" type="password" autocomplete="off" />
       </a-form-item>
+      <a-form-item has-feedback label="角色" name="roles">
+        <a-checkbox-group v-model:value="formState.roles">
+          <a-row :gutter="[0, 12]" justify="space-around">
+            <a-col :span="8" v-for="item in plainOptions" :key="item.id">
+              <a-checkbox :value="item.id">{{ item.rolename }}</a-checkbox>
+            </a-col>
+          </a-row>
+        </a-checkbox-group>
+      </a-form-item>
     </a-form>
   </a-modal>
 </template>
 
 <script lang="ts" setup>
-import { ref, h, reactive, toRaw } from 'vue'
+import { ref, h, reactive, toRaw, defineEmits } from 'vue'
 import { PlusOutlined } from '@ant-design/icons-vue'
 import { message } from 'ant-design-vue'
 import type { Rule } from 'ant-design-vue/es/form'
 import { addUser } from '@/api/user'
+import { getRoleList } from '@/api/role'
 import { type IUserAddreq } from '@/api/types/user'
+import { type IRoleRes } from '@/api/types/role'
+
 interface FormState extends IUserAddreq {
   confirm?: string
 }
+const emit = defineEmits(['handleGetUserList'])
+
 const formRef = ref()
 const formState = reactive<FormState>({
   username: '',
@@ -44,6 +58,7 @@ const formState = reactive<FormState>({
   password: '',
   confirm: '',
   email: '',
+  roles: [],
 })
 const validatePass = async (_rule: Rule, value: string) => {
   if (value === '') {
@@ -79,8 +94,16 @@ const layout = {
   labelCol: { span: 5 },
   wrapperCol: { span: 18 },
 }
+const plainOptions = ref<IRoleRes[]>([])
 
-const router = useRouter() // 初始化路由器实例
+// 获取角色列表
+const getRoles = async () => {
+  const { code, data } = await getRoleList()
+  if (code === 200) {
+    plainOptions.value = data
+  }
+}
+
 const onSubmit = () => {
   formRef.value
     .validate()
@@ -89,15 +112,17 @@ const onSubmit = () => {
       const rest = { ...formState }
       delete rest.confirm
       const { code, msg } = await addUser(rest)
+
       if (code === 200) {
         message.success('用户创建成功!')
         resetForm()
-        router.push('/user/list') // 使用 router.push 进行页面跳转
+        open.value = false
+        emit('handleGetUserList')
       } else {
         message.error(msg)
       }
     })
-    .catch((error) => {
+    .catch((error: any) => {
       console.log('error', error)
     })
 }
@@ -107,6 +132,7 @@ const resetForm = () => {
 const open = ref<boolean>(false)
 const showModal = () => {
   open.value = true
+  getRoles()
 }
 </script>
 

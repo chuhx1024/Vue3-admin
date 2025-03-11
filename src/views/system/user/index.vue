@@ -25,7 +25,7 @@
         <filter-grid>
           <template #left-title> 用户列表 </template>
           <template #right>
-            <create-user-modal />
+            <create-user-modal @handleGetUserList="handleGetUserList" />
           </template>
         </filter-grid>
         <a-table :columns="columns" :data-source="userList">
@@ -140,7 +140,7 @@ const columns = [
 ]
 
 const userList = ref<IUserRes[]>([])
-const handlegetUserList = async () => {
+const handleGetUserList = async () => {
   const { code, msg, data } = await getUserList()
 
   if (code === 200) {
@@ -151,7 +151,7 @@ const handlegetUserList = async () => {
 }
 
 onMounted(() => {
-  handlegetUserList()
+  handleGetUserList()
   handleGetDeptList()
 })
 </script>
