@@ -1,14 +1,14 @@
 <template>
   <a-layout-content class="the-main-app-container">
-    <transition name="fade-transform" mode="out-in">
-      <RouterView :key="route.path" />
-    </transition>
+    <router-view v-slot="{ Component }">
+      <transition name="fade-transform" mode="out-in">
+        <component :is="Component" />
+      </transition>
+    </router-view>
   </a-layout-content>
 </template>
 
-<script lang="ts" setup>
-const route = useRoute()
-</script>
+<script lang="ts" setup></script>
 
 <style lang="scss" scoped>
 .the-main-app-container {

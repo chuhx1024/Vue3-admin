@@ -105,7 +105,6 @@ const handleGetDeptList = async () => {
   const { code, msg, data } = await getDeptList()
 
   if (code === 200) {
-    console.log(data, 123)
     deptList.value = data as any
   } else {
     message.error(msg)

@@ -50,7 +50,7 @@ export const siderbarRoutes: siderbarRouteConfig[] = [
         path: '/system/dept',
         component: () => import('@/views/system/dept/index.vue'),
         meta: {
-          key: 'system/dept',
+          key: '/system/dept',
           icon: UserOutlined,
           label: '部门管理',
         },
@@ -59,10 +59,11 @@ export const siderbarRoutes: siderbarRouteConfig[] = [
   },
 
   {
-    path: '/role/list',
+    path: '/role',
+    redirect: '/role/list',
     component: RouterView,
     meta: {
-      key: '/role/list',
+      key: '/role',
       icon: UserOutlined,
       label: '角色管理',
     },

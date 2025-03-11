@@ -1,9 +1,11 @@
 <template>
-  <filter-grid>
-    <template #left-title> 部门列表 </template>
-    <template #right> 123 </template>
-  </filter-grid>
-  <a-table :columns="columns" :data-source="data" :row-selection="rowSelection" />
+  <div>
+    <filter-grid>
+      <template #left-title> 部门列表 </template>
+      <template #right> 123 </template>
+    </filter-grid>
+    <a-table :columns="columns" :data-source="data" :row-selection="rowSelection" />
+  </div>
 </template>
 <script lang="ts" setup>
 import { ref } from 'vue'

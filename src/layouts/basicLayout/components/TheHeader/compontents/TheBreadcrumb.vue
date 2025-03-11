@@ -1,7 +1,7 @@
 <template>
   <a-breadcrumb class="breadcrumb-container">
-    <transition-group name="breadcrumb">
-      <a-breadcrumb-item v-for="(item, index) in breadcrumbRoutes" :key="item.path">
+    <transition-group name="breadcrumb" tag="div">
+      <a-breadcrumb-item v-for="(item, index) in breadcrumbRoutes" :key="item.path || index">
         <component
           :is="index === breadcrumbRoutes.length - 1 ? 'span' : 'router-link'"
           v-if="item.path !== ''"
@@ -34,7 +34,6 @@ const generateBreadcrumb = () => {
     path: route.path,
     label: route.meta.label as string,
   }))
-  console.log(route.path)
   // 只有在当前路由不是首页时才添加首页的面包屑项
   if (route.path !== '/dashboard') {
     breadcrumbRoutes.value.unshift({ path: '/', label: 'Dashboard' })
@@ -44,7 +43,6 @@ const generateBreadcrumb = () => {
 watch(
   () => route.path,
   () => {
-    // alert(route.path)
     generateBreadcrumb()
   },
   { immediate: true },
