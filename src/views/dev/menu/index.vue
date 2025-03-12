@@ -1,7 +1,5 @@
 <template>
   <page-grid theme="transparent">
-    <template #left-title> 部门列表 </template>
-    <template #right> <a-button type="primary">Primary Button</a-button> </template>
     <a-table :columns="columns" :data-source="data" :row-selection="rowSelection" />
   </page-grid>
 </template>

@@ -20,56 +20,52 @@
         </div>
       </Transition>
     </a-layout-sider>
-    <a-layout style="margin-left: 10px">
-      <a-layout-content :style="{ padding: '24px', background: '#fff', minHeight: '280px' }">
-        <filter-grid>
-          <template #left-title> 用户列表 </template>
-          <template #right>
-            <create-user-modal @handleGetUserList="handleGetUserList" :deptList="deptList" />
+    <page-grid style="margin-left: 10px">
+      <template #left-title> 用户列表 </template>
+      <template #right>
+        <create-user-modal @handleGetUserList="handleGetUserList" :deptList="deptList" />
+      </template>
+      <a-table :columns="columns" :data-source="userList">
+        <template #headerCell="{ column }">
+          <template v-if="column.key === 'username'">
+            <span>
+              <smile-outlined />
+              Name
+            </span>
           </template>
-        </filter-grid>
-        <a-table :columns="columns" :data-source="userList">
-          <template #headerCell="{ column }">
-            <template v-if="column.key === 'username'">
-              <span>
-                <smile-outlined />
-                Name
-              </span>
-            </template>
-          </template>
+        </template>
 
-          <template #bodyCell="{ column, record }">
-            <template v-if="column.key === 'username'">
-              <a>
-                {{ record.username }}
-              </a>
-            </template>
-            <template v-else-if="column.key === 'dept'">
-              <a>
-                {{ record.dept?.name }}
-              </a>
-            </template>
-            <template v-else-if="column.key === 'roles'">
-              <span>
-                <a-tag
-                  v-for="role in record.roles"
-                  :key="role.id"
-                  :color="
-                    role.rolename === 'loser'
-                      ? 'volcano'
-                      : role.rolename.length > 5
-                        ? 'geekblue'
-                        : 'green'
-                  "
-                >
-                  {{ role.rolename }}
-                </a-tag>
-              </span>
-            </template>
+        <template #bodyCell="{ column, record }">
+          <template v-if="column.key === 'username'">
+            <a>
+              {{ record.username }}
+            </a>
           </template>
-        </a-table>
-      </a-layout-content>
-    </a-layout>
+          <template v-else-if="column.key === 'dept'">
+            <a>
+              {{ record.dept?.name }}
+            </a>
+          </template>
+          <template v-else-if="column.key === 'roles'">
+            <span>
+              <a-tag
+                v-for="role in record.roles"
+                :key="role.id"
+                :color="
+                  role.rolename === 'loser'
+                    ? 'volcano'
+                    : role.rolename.length > 5
+                      ? 'geekblue'
+                      : 'green'
+                "
+              >
+                {{ role.rolename }}
+              </a-tag>
+            </span>
+          </template>
+        </template>
+      </a-table>
+    </page-grid>
   </a-layout>
 </template>
 <script lang="ts" setup>

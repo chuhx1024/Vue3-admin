@@ -66,6 +66,27 @@ export const siderbarRoutes: siderbarRouteConfig[] = [
       },
     ],
   },
+  {
+    path: '/dev',
+    redirect: '/dev/menu',
+    component: RouterView,
+    meta: {
+      key: '/dev',
+      icon: VideoCameraOutlined,
+      label: '开发辅助',
+    },
+    children: [
+      {
+        path: '/dev/menu',
+        component: () => import('@/views/dev/menu/index.vue'),
+        meta: {
+          key: '/system/user',
+          icon: UserOutlined,
+          label: '菜单管理',
+        },
+      },
+    ],
+  },
 
   {
     path: '/about',
