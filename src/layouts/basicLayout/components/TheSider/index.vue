@@ -19,7 +19,8 @@
 <script lang="ts" setup>
 import { type MenuProps } from 'ant-design-vue'
 import { useAppStore } from '@/stores/modules/app'
-import { siderbarRoutes, type siderbarRouteConfig } from '@/router/index'
+import { usePermissionStore } from '@/stores/modules/permission'
+import { type siderbarRouteConfig } from '@/router/index'
 // 获取 Store 实例
 const appStore = useAppStore()
 
@@ -40,7 +41,8 @@ const createItems = (routes: siderbarRouteConfig[]): MenuProps['items'] => {
       }
     })
 }
-const menuItems = createItems(siderbarRoutes)
+const { sidebar } = usePermissionStore()
+const menuItems = createItems(sidebar)
 
 const router = useRouter()
 const handleMenuItemClick: MenuProps['onClick'] = (e) => {

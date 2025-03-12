@@ -4,11 +4,13 @@ import 'normalize.css/normalize.css' // A modern alternative to CSS resets
 import '@/styles/index.scss' // global css
 
 import App from './App.vue'
-import router from './router'
+import { setupRouter } from './router'
 
-const app = createApp(App)
+const setupApp = async () => {
+  const app = createApp(App)
+  app.use(pinia)
+  await setupRouter(app)
+  app.mount('#app')
+}
 
-app.use(pinia)
-app.use(router)
-
-app.mount('#app')
+setupApp()

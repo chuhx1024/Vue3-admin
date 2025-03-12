@@ -21,3 +21,10 @@ export const getUserInfo = () => {
     url: '/base/user_info',
   })
 }
+// 获取用户路由权限
+export const getUserMenu = () => {
+  return request<any>({
+    method: 'GET',
+    url: '/base/user_info',
+  })
+}

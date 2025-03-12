@@ -36,6 +36,7 @@ import { login } from '@/api/login'
 import { message } from 'ant-design-vue'
 import { setToken } from '@/utils/handleCookie'
 import { useUserStore } from '@/stores/modules/user'
+import addDynamicRoutes from '@/router/premission'
 
 interface FormState {
   username: string
@@ -60,6 +61,7 @@ const onFinish = async (values: FormState) => {
     message.info('登录成功!')
     const { access_token, token_type } = data
     setToken(access_token, token_type)
+    await addDynamicRoutes()
     const { id, getUserInfo } = userStore
     !id && (await getUserInfo())
     router.push('/') // 使用 router.push 进行页面跳转

@@ -2,6 +2,7 @@ import { createRouter, createWebHistory, RouterView, type RouteRecordRaw } from 
 import BasicLayout from '@/layouts/basicLayout/BasicLayout.vue'
 import LoginLayout from '@/layouts/LoginLayout.vue'
 import { UserOutlined, VideoCameraOutlined, UploadOutlined } from '@ant-design/icons-vue'
+import addDynamicRoutes from './premission'
 
 export interface RouteMeta {
   key: string
@@ -17,99 +18,23 @@ export type siderbarRouteConfig = RouteRecordRaw & {
   children?: siderbarRouteConfig[]
 }
 
-export const siderbarRoutes: siderbarRouteConfig[] = [
+export const baseRoutes: RouteRecordRaw[] = [
   {
-    path: '/dashboard',
-    component: () => import('@/views/DashboardView.vue'),
-    meta: {
-      key: '/dashboard',
-      icon: VideoCameraOutlined,
-      label: 'Dashboard',
-    },
-  },
-  {
-    path: '/system',
-    redirect: '/system/user',
-    component: RouterView,
-    meta: {
-      key: '/sysetm',
-      icon: VideoCameraOutlined,
-      label: '系统管理',
-    },
+    path: '/',
+    component: BasicLayout,
+    redirect: '/dashboard',
     children: [
       {
-        path: '/system/user',
-        component: () => import('@/views/system/user/index.vue'),
+        path: '/dashboard',
+        component: () => import('@/views/DashboardView.vue'),
         meta: {
-          key: '/system/user',
-          icon: UserOutlined,
-          label: '用户管理',
-        },
-      },
-      {
-        path: '/system/dept',
-        component: () => import('@/views/system/dept/index.vue'),
-        meta: {
-          key: '/system/dept',
-          icon: UserOutlined,
-          label: '部门管理',
-        },
-      },
-      {
-        path: '/system/role',
-        component: () => import('@/views/system/role/index.vue'),
-        meta: {
-          key: '/system/role',
-          icon: UserOutlined,
-          label: '角色管理',
+          key: '/dashboard',
+          icon: VideoCameraOutlined,
+          label: 'Dashboard',
         },
       },
     ],
   },
-  {
-    path: '/dev',
-    redirect: '/dev/menu',
-    component: RouterView,
-    meta: {
-      key: '/dev',
-      icon: VideoCameraOutlined,
-      label: '开发辅助',
-    },
-    children: [
-      {
-        path: '/dev/menu',
-        component: () => import('@/views/dev/menu/index.vue'),
-        meta: {
-          key: '/system/user',
-          icon: UserOutlined,
-          label: '菜单管理',
-        },
-      },
-    ],
-  },
-
-  {
-    path: '/about',
-    component: () => import('@/views/HomeView.vue'),
-    meta: {
-      key: '/about',
-      icon: UploadOutlined,
-      label: '关于我们',
-    },
-  },
-  {
-    path: '/about9',
-    component: () => import('@/views/HomeView.vue'),
-    meta: {
-      key: '/about0',
-      hidden: true,
-      icon: UploadOutlined,
-      label: '关于我们',
-    },
-  },
-]
-
-export const routes: RouteRecordRaw[] = [
   {
     path: '/login',
     component: LoginLayout,
@@ -117,20 +42,112 @@ export const routes: RouteRecordRaw[] = [
       {
         path: '/login',
         component: () => import('@/views/LoginView.vue'),
+        meta: {
+          key: '/login',
+          hidden: true,
+          icon: UploadOutlined,
+          label: '登录',
+        },
       },
     ],
   },
+]
+export const permissionRouters = [
   {
     path: '/',
     component: BasicLayout,
-    redirect: siderbarRoutes[0].path,
-    children: [...siderbarRoutes],
+    children: [
+      {
+        path: '/system',
+        redirect: '/system/user',
+        component: RouterView,
+        meta: {
+          key: '/sysetm',
+          icon: VideoCameraOutlined,
+          label: '系统管理',
+        },
+        children: [
+          {
+            path: '/system/user',
+            component: () => import('@/views/system/user/index.vue'),
+            meta: {
+              key: '/system/user',
+              icon: UserOutlined,
+              label: '用户管理',
+            },
+          },
+          {
+            path: '/system/dept',
+            component: () => import('@/views/system/dept/index.vue'),
+            meta: {
+              key: '/system/dept',
+              icon: UserOutlined,
+              label: '部门管理',
+            },
+          },
+          {
+            path: '/system/role',
+            component: () => import('@/views/system/role/index.vue'),
+            meta: {
+              key: '/system/role',
+              icon: UserOutlined,
+              label: '角色管理',
+            },
+          },
+        ],
+      },
+      {
+        path: '/dev',
+        redirect: '/dev/menu',
+        component: RouterView,
+        meta: {
+          key: '/dev',
+          icon: VideoCameraOutlined,
+          label: '开发辅助',
+        },
+        children: [
+          {
+            path: '/dev/menu',
+            component: () => import('@/views/dev/menu/index.vue'),
+            meta: {
+              key: '/dev/menu',
+              icon: UserOutlined,
+              label: '菜单管理',
+            },
+          },
+        ],
+      },
+
+      {
+        path: '/about',
+        component: () => import('@/views/HomeView.vue'),
+        meta: {
+          key: '/about',
+          icon: UploadOutlined,
+          label: '关于我们',
+        },
+      },
+      {
+        path: '/about9',
+        component: () => import('@/views/HomeView.vue'),
+        meta: {
+          key: '/about0',
+          hidden: true,
+          icon: UploadOutlined,
+          label: '关于我们',
+        },
+      },
+    ],
   },
 ]
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
-  routes: routes,
+  routes: baseRoutes,
 })
+export async function setupRouter(app: any) {
+  await addDynamicRoutes()
+  app.use(router)
+}
 
 export default router
