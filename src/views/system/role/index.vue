@@ -32,19 +32,13 @@
       </template>
       <a-tabs>
         <a-tab-pane key="1" tab="菜单权限">
-          <a-tree
-            v-model:expandedKeys="expandedKeys"
-            v-model:selectedKeys="selectedKeys"
-            v-model:checkedKeys="checkedKeys"
-            checkable
-            :field-names="fieldNames"
-            :tree-data="treeData"
-          >
+          <a-tree checkable :tree-data="treeData" v-model:checkedKeys="checkedKeys">
             <template #title="{ title, key }">
               <span v-if="key === '0-0-1-0'" style="color: #1890ff">{{ title }}</span>
               <template v-else>{{ title }}</template>
             </template>
           </a-tree>
+          {{ checkedKeys }}
         </a-tab-pane>
       </a-tabs>
     </a-drawer>
@@ -107,17 +101,9 @@ const createItems = (menus: any[]): TreeProps['treeData'] => {
 
 const treeData: TreeProps['treeData'] = createItems(menus)
 
-const expandedKeys = ref<string[]>(['0-0-0', '0-0-1'])
-const selectedKeys = ref<string[]>(['0-0-0', '0-0-1'])
-const checkedKeys = ref<string[]>(['0-0-0', '0-0-1'])
-watch(expandedKeys, () => {
-  console.log('expandedKeys', expandedKeys)
-})
-watch(selectedKeys, () => {
-  console.log('selectedKeys', selectedKeys)
-})
+const checkedKeys = ref<string[]>([])
 watch(checkedKeys, () => {
-  console.log('checkedKeys', checkedKeys)
+  console.log('selectedKeys', checkedKeys)
 })
 
 onMounted(() => {
