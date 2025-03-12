@@ -21,7 +21,7 @@ export type siderbarRouteConfig = RouteRecordRaw & {
 export const baseRoutes: RouteRecordRaw[] = [
   {
     path: '/',
-    component: BasicLayout,
+    component: markRaw(BasicLayout),
     redirect: '/dashboard',
     children: [
       {
@@ -37,7 +37,7 @@ export const baseRoutes: RouteRecordRaw[] = [
   },
   {
     path: '/login',
-    component: LoginLayout,
+    component: markRaw(LoginLayout),
     children: [
       {
         path: '/login',
@@ -55,12 +55,12 @@ export const baseRoutes: RouteRecordRaw[] = [
 export const permissionRouters = [
   {
     path: '/',
-    component: BasicLayout,
+    component: markRaw(BasicLayout),
     children: [
       {
         path: '/system',
         redirect: '/system/user',
-        component: RouterView,
+        component: markRaw(RouterView),
         meta: {
           key: '/sysetm',
           icon: VideoCameraOutlined,
@@ -99,7 +99,7 @@ export const permissionRouters = [
       {
         path: '/dev',
         redirect: '/dev/menu',
-        component: RouterView,
+        component: markRaw(RouterView),
         meta: {
           key: '/dev',
           icon: VideoCameraOutlined,
