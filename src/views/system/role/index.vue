@@ -5,10 +5,10 @@
       <a-button type="primary" :icon="h(PlusOutlined)">新建用户</a-button>
     </template>
     <a-table :columns="columns" :data-source="roleList">
-      <template #bodyCell="{ column }">
+      <template #bodyCell="{ column, record }">
         <template v-if="column.key === 'action'">
           <span>
-            <a-button type="primary" size="small" @click="showDrawer">
+            <a-button type="primary" size="small" @click="showDrawer(record.id)">
               <template #icon><FormOutlined /> </template>
               <span>设置权限</span>
             </a-button>
@@ -27,7 +27,7 @@
     >
       <template #extra>
         <a-space>
-          <a-button type="primary">Submit</a-button>
+          <a-button @click="setPremission" type="primary">Submit</a-button>
         </a-space>
       </template>
       <a-tabs>
@@ -38,7 +38,6 @@
               <template v-else>{{ title }}</template>
             </template>
           </a-tree>
-          {{ checkedKeys }}
         </a-tab-pane>
       </a-tabs>
     </a-drawer>
@@ -49,7 +48,7 @@ import { ref, onMounted, h } from 'vue'
 import { PlusOutlined } from '@ant-design/icons-vue'
 import type { TreeProps } from 'ant-design-vue'
 import { message } from 'ant-design-vue'
-import { getRoleList } from '@/api/role'
+import { getRoleList, setRolePermission, getRoleById } from '@/api/role'
 import { type IRoleRes } from '@/api/types/role'
 import { usePermissionStore } from '@/stores/modules/permission'
 
@@ -82,7 +81,10 @@ const getRoles = async () => {
 }
 
 const open = ref(false)
-const showDrawer = () => {
+const activeRoleId = ref(0)
+const showDrawer = (id: number) => {
+  activeRoleId.value = id
+  getPremission(id)
   open.value = true
 }
 const { menus } = usePermissionStore()
@@ -102,9 +104,28 @@ const createItems = (menus: any[]): TreeProps['treeData'] => {
 const treeData: TreeProps['treeData'] = createItems(menus)
 
 const checkedKeys = ref<string[]>([])
-watch(checkedKeys, () => {
-  console.log('selectedKeys', checkedKeys)
-})
+
+const setPremission = async () => {
+  const { code, msg, data } = await setRolePermission({
+    permission: checkedKeys.value.toString(),
+    roleId: activeRoleId.value,
+  })
+  if (code === 200) {
+    console.log(data)
+    message.info('设置成功!')
+  } else {
+    message.error(msg)
+  }
+}
+const getPremission = async (id: number) => {
+  checkedKeys.value = []
+  const { code, msg, data } = await getRoleById(id)
+  if (code === 200) {
+    checkedKeys.value = data.permission?.split(',')
+  } else {
+    message.error(msg)
+  }
+}
 
 onMounted(() => {
   getRoles()

@@ -3,6 +3,21 @@ import piniaStore from '@/stores/index'
 import { type PermissionState } from './types'
 import { getUserMenu } from '@/api/login'
 import { permissionRouters, baseRoutes } from '@/router/index'
+import { type siderbarRouteConfig } from '@/router'
+
+const buildRoutes = (routers: siderbarRouteConfig[], menus: string[]) => {
+  const res: siderbarRouteConfig[] = []
+
+  routers.map((item) => {
+    if (menus.includes(item.path)) {
+      if (item.children) {
+        item.children = buildRoutes(item.children, menus)
+      }
+      res.push(item)
+    }
+  })
+  return res
+}
 
 export const usePermissionStore = defineStore(
   // 唯一ID
@@ -25,8 +40,13 @@ export const usePermissionStore = defineStore(
     actions: {
       async generateRoutes() {
         const { data } = await getUserMenu() // 调用接口获取后端传来的菜单路由
-        console.log(data)
-        this.accessRoutes = permissionRouters
+        const { menus } = data
+        // buildRoutes(router, menus)
+        menus.push('/')
+
+        // this.accessRoutes = permissionRouters
+        this.accessRoutes = buildRoutes(permissionRouters, menus)
+        // this.accessRoutes = permissionRouters
         return this.accessRoutes
       },
     },

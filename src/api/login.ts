@@ -25,6 +25,6 @@ export const getUserInfo = () => {
 export const getUserMenu = () => {
   return request<any>({
     method: 'GET',
-    url: '/base/user_info',
+    url: '/base/menus',
   })
 }

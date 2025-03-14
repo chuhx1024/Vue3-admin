@@ -42,7 +42,8 @@ const createItems = (routes: siderbarRouteConfig[]): MenuProps['items'] => {
     })
 }
 const { sidebar } = usePermissionStore()
-const menuItems = createItems(sidebar)
+// const menuItems = createItems(sidebar)
+const menuItems = computed(() => createItems(sidebar))
 
 const router = useRouter()
 const handleMenuItemClick: MenuProps['onClick'] = (e) => {

@@ -12,7 +12,8 @@ const addDynamicRoutes = async () => {
   try {
     const { generateRoutes } = usePermissionStore()
     const accessRoutes = await generateRoutes()
-    console.log(accessRoutes)
+    console.log(accessRoutes, 1234567)
+    console.log()
     accessRoutes.forEach((route) => {
       !router.hasRoute(route.name) && router.addRoute(route)
     })

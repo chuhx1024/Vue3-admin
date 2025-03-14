@@ -7,7 +7,7 @@
             <UserOutlined />
           </template>
         </a-avatar>
-        <span>Admin</span>
+        <span>{{ username }}</span>
         <DownOutlined />
       </a-space>
     </a>
@@ -22,10 +22,15 @@
 <script lang="ts" setup>
 import { type MenuProps } from 'ant-design-vue'
 import { removeCookie } from '@/utils/handleCookie'
+import { useUserStore } from '@/stores/modules/user'
+import { usePermissionStore } from '@/stores/modules/permission'
 const router = useRouter()
+const { username } = useUserStore()
 
 const loginOut = () => {
   removeCookie()
+  useUserStore().$reset()
+  usePermissionStore().$reset()
   router.push('/login')
 }
 const onClick: MenuProps['onClick'] = ({ key }) => {

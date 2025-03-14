@@ -62,7 +62,7 @@ export const permissionRouters = [
         redirect: '/system/user',
         component: markRaw(RouterView),
         meta: {
-          key: '/sysetm',
+          key: '/system',
           icon: VideoCameraOutlined,
           label: '系统管理',
         },
