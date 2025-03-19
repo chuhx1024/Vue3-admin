@@ -16,6 +16,7 @@
     "ant-design-vue": "4.x",
     "axios": "^1.7.9",
     "js-cookie": "^3.0.5",
+    "lodash": "^4.17.21",
     "normalize.css": "^8.0.1",
     "pinia": "^3.0.1",
     "pinia-plugin-persistedstate": "^4.2.0",
@@ -25,6 +26,7 @@
   "devDependencies": {
     "@tsconfig/node22": "^22.0.0",
     "@types/js-cookie": "^3.0.6",
+    "@types/lodash": "^4.17.16",
     "@types/node": "^22.13.4",
     "@vitejs/plugin-vue": "^5.2.1",
     "@vue/eslint-config-prettier": "^10.2.0",

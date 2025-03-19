@@ -4,6 +4,7 @@ import { type PermissionState } from './types'
 import { getUserMenu } from '@/api/login'
 import { permissionRouters, baseRoutes } from '@/router/index'
 import { type siderbarRouteConfig } from '@/router'
+import _ from 'lodash'
 
 const buildRoutes = (routers: siderbarRouteConfig[], menus: string[]) => {
   const res: siderbarRouteConfig[] = []
@@ -31,10 +32,14 @@ export const usePermissionStore = defineStore(
         return baseRoutes.concat(this.accessRoutes)
       },
       sidebar(): any {
-        return baseRoutes[0].children?.concat(this.accessRoutes[0].children)
+        const accessRoutes = []
+        if (this.accessRoutes.length !== 0) {
+          accessRoutes.push(...this.accessRoutes[0].children)
+        }
+        return baseRoutes[0].children?.concat(accessRoutes)
       },
       menus() {
-        return permissionRouters[0].children
+        return this.accessRoutes[0].children
       },
     },
     actions: {
@@ -45,7 +50,8 @@ export const usePermissionStore = defineStore(
         menus.push('/')
 
         // this.accessRoutes = permissionRouters
-        this.accessRoutes = buildRoutes(permissionRouters, menus)
+        const deepCopy: siderbarRouteConfig[] = _.cloneDeep(permissionRouters)
+        this.accessRoutes = buildRoutes(deepCopy, menus)
         // this.accessRoutes = permissionRouters
         return this.accessRoutes
       },
